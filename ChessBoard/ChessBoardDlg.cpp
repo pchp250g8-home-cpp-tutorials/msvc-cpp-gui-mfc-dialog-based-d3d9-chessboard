@@ -207,19 +207,18 @@ void CChessBoardDlg::RenderScene()
 	width = rect.Width() / 8;
 	height = rect.Height() / 8;
 	m_d3d_Device->Clear(0, nullptr, D3DCLEAR_TARGET, d3dColor1, 0, 0);
-	for (int i = 0; i < 8; i++)
+	for (int k = 0; k < 32; k++)
 	{
-		for (int j = i % 2; j < 8; j += 2)
-		{
-			int left = i * width;
-			int top = j * height;
-			int right = left + width;
-			int bottom = top + height;
-			rects[k].x1 = left; rects[k].y1 = top;
-			rects[k].x2 = right; rects[k].y2 = bottom;
-			k++;
-		}
+		int i = k / 4;
+		int j = (k % 4) * 2 + (i % 2);
+		int left = i * width;
+		int top = j * height;
+		rects[k].x1 = left;
+		rects[k].y1 = top; 
+		rects[k].x2 = left + width;
+		rects[k].y2 = top + height;
 	}
+
 	m_d3d_Device->Clear(32, rects, D3DCLEAR_TARGET, d3dColor2, 0, 0);
 	m_d3d_Device->BeginScene();
 	m_d3d_Device->EndScene();
